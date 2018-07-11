@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../styles/PostEditor.css';
 class PostEditor extends React.Component {
   constructor(props){
  super(props);

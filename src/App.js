@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
-import Post from './Post/component/Post';
-import PostEditor from './PostEditor/components/PostEditor';
+
 import './App.css';
+import ThreadDisplay from './ThreadDisplay/components/ThreadDisplay';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.addPost = this.addPost.bind(this);
-        this.state = {
-      posts: [],
-    }
-  }
-  addPost(newPostBody) {
-   //console.log(newPostBody);
-    const newState = Object.assign({},this.state);
-    newState.posts.push(newPostBody);
-    this.setState(newState);
-  }
 
-
+    const config = {
+    apiKey: "AIzaSyCREsCFeeWkqjcGam11-tDYPtXYaYVxAkg",
+    authDomain: "finalform-4182f.firebaseapp.com",
+    databaseURL: "https://finalform-4182f.firebaseio.com",
+    projectId: "finalform-4182f",
+    storageBucket: "finalform-4182f.appspot.com",
+    messagingSenderId: "898827597023"
+  };
+  this.app = firebase.initalizeApp(config);
+  this.database = this.app.database();
+  }
   render() {
     return (
-      <div>
-        {
-          this.state.posts.map((postBody,idx) =>{
-            return (
-              <Post key={idx} postBody={postBody} />
-            )
-          })
-        }
-        <PostEditor addPost={this.addPost}/>
-      </div>
+      <ThreadDisplay database={this.database}/>
     );
   }
 }
