@@ -3,10 +3,7 @@
 }
 
 @media(max-width: 900px) {
-  .post-editor {
+  .post-body {
     margin: 1em;
   }
-}
-.post-body {
-  margin: 1em;
 }

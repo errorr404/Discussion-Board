@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Post from '../../Post/component/Post';
 import PostEditor from '../../PostEditor/components/PostEditor';
 
-class ThreadDisplay extends React.Component {
+class ThreadDisplay extends Component {
   constructor(props) {
     super(props);
 
@@ -10,26 +10,24 @@ class ThreadDisplay extends React.Component {
     this.addPost = this.addPost.bind(this);
     this.updateLocalState = this.updateLocalState.bind(this);
 
-        this.state = {
+    this.state = {
       posts: [],
     }
   }
+
   componentWillMount() {
     const {updateLocalState} = this;
-    this.databaseRef.on('child_added',snapshot =>{
+    this.databaseRef.on('child_added', snapshot => {
       const response = snapshot.val();
       updateLocalState(response);
     });
   }
 
-  addPost(PostBody) {
-   //console.log(newPostBody);
-    // const newState = Object.assign({},this.state);
-    // newState.posts.push(newPostBody);
-    // this.setState(newState);
+  addPost(postBody) {
     const postToSave = {postBody};
     this.databaseRef.push().set(postToSave);
   }
+
   updateLocalState(response) {
     const posts = this.state.posts;
     const brokenDownPost = response.postBody.split(/[\r\n]/g);
@@ -38,13 +36,14 @@ class ThreadDisplay extends React.Component {
       posts: posts,
     });
   }
+
   render() {
     return (
       <div>
         {
-          this.state.posts.map((postBody,idx) =>{
+          this.state.posts.map((postBody, idx) => {
             return (
-              <Post key={idx} postBody={postBody} />
+              <Post key={idx} postBody={postBody}/>
             )
           })
         }
@@ -53,4 +52,5 @@ class ThreadDisplay extends React.Component {
     );
   }
 }
+
 export default ThreadDisplay;
