@@ -22,7 +22,11 @@ class App extends Component {
   }
   render() {
     return (
-      <ThreadDisplay database={this.database}/>
+      <div>
+        <h1 className="middle">Discussion Board</h1>
+        <ThreadDisplay database={this.database}/>
+      </div>
+
     );
   }
 }
